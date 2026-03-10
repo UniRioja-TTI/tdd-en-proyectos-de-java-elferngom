@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 public class Servicio {
     private Repositorio repo = new Repositorio();
     private MailerStub mailer = new MailerStub();
+    private List<String> nombresDeTareas = new java.util.ArrayList<>();
     public void crearTarea(String nombre, Date fechaLimite) {
         ToDo nuevaTarea = new ToDo();
         nuevaTarea.setNombre(nombre);
@@ -15,6 +16,7 @@ public class Servicio {
         nuevaTarea.setCompletado(false);
 
         repo.guardarNuevaTarea(nuevaTarea);
+        nombresDeTareas.add(nombre);
     }
     public void agregarEmail(String email) {
         repo.guardarEmail(email);
@@ -23,9 +25,19 @@ public class Servicio {
         repo.marcarCompletada(nombre);
     }
     public List<ToDo> consultarPendientes() {
-        return null;
+        return nombresDeTareas.stream()
+            .map(nombre -> repo.buscarPorNombre(nombre))
+            .filter(t -> t != null && !t.getCompletado())
+            .collect(java.util.stream.Collectors.toList());
     }
-    private void comprobarAlertas() { throw new UnsupportedOperationException("Clase aún no implementada."); }
+    private void comprobarAlertas() {
+        Date hoy = new Date();
+
+        List<ToDo> urgentes = nombresDeTareas.stream()
+            .map(nombre -> repo.buscarPorNombre(nombre))
+            .filter(t -> t != null && !t.getCompletado())
+            .filter(t -> t.getFecha().before(hoy)).toList();
+    }
 }
 
 
