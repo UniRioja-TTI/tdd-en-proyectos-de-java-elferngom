@@ -41,7 +41,7 @@ public class ToDo {
     public void setFecha(Date fecha) { this.fecha = fecha; }
     /**
      * Indica si la tarea ya ha sido finalizada
-     * @return {@code true} si la tarea está completada; {@code false} en caso contrario
+     * @return {@code true} si la tarea está completada; {@code false} en caso contrario.
      */
     public boolean getCompletado() { return completado; }
     /**

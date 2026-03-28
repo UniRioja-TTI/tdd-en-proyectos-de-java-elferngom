@@ -27,7 +27,7 @@ public class Servicio {
     }
     /**
      * Registra un correo electrónico y lo guarda en el repositorio
-     * @param email La dirección de correo a guardar
+     * @param email La dirección de correo a guardar.
      */
     public void agregarEmail(String email) {
         repo.guardarEmail(email);

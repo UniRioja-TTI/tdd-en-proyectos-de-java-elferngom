@@ -14,7 +14,7 @@ public class Repositorio {
         return db.leer(nombre);
     }
     /**
-     *Localiza una tarea por su nombre, cambia su estado a completado
+     *Localiza una tarea por su nombre, cambia su estado a completado.
      * @param nombre el nombre de la tarea que se desea marcar como terminada
      */
     public void marcarCompletada(String nombre) {

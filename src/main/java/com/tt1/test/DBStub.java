@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 /**
  * Clase que actúa como un simulador de base de datos
- * Permite gestionar una lista de tareas y un conjunto de correos electrónicos
+ * Permite gestionar una lista de tareas y un conjunto de correos electrónicos.
  */
 public class DBStub {
     private List<ToDo> tareas = new ArrayList<>();
