@@ -1,8 +1,6 @@
 package com.tt1.test;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 /**
  * Clase que actúa como un simulador de base de datos
  * Permite gestionar una lista de tareas y un conjunto de correos electrónicos.
@@ -24,7 +22,7 @@ public class DBStub {
      */
     public ToDo leer(String nombre) {
         return tareas.stream()
-            .filter(t -> t.getNombre().equals(nombre))
+            .filter(t -> Objects.equals(nombre, t.getNombre()))
             .findFirst()
             .orElse(null);
     }
