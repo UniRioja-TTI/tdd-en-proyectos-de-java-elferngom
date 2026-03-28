@@ -8,23 +8,31 @@ jobs:
   check-quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 1. Descargar codigo
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # Obligamos a Git a no guardar las llaves del robot
+          persist-credentials: false 
 
-      - uses: actions/setup-java@v4
+      - name: 2. Configurar Java
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: run tests
+      - name: 3. Ejecutar tests
         run: mvn test
-        
-      - name: sync to early
+
+      - name: 4. Sincronizar ramas (Fuerza Bruta)
         if: success()
         run: |
           git config user.name "github-actions"
           git config user.email "action@github.com"
+          
+          # Cambiamos la "dirección de envío" para usar tu token MI_TOKEN
+          git remote set-url origin https://x-access-token:${{ secrets.MI_TOKEN }}@github.com/${{ github.repository }}.git
+          
           git checkout early
           git merge main
-          git push https://x-access-token:${{ secrets.MI_TOKEN }}@github.com/${{ github.repository }}.git early
+          git push origin early
