@@ -27,4 +27,4 @@ jobs:
           git config user.email "action@github.com"
           git checkout early
           git merge main
-          git push https://${{ secrets.MI_TOKEN_SECRETO }}@github.com/${{ github.repository }}.git early
+          git push https://${{ secrets.MI_TOKEN }}@github.com/${{ github.repository }}.git early
