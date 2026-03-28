@@ -8,8 +8,8 @@ import java.util.Set;
  * Permite gestionar una lista de tareas y un conjunto de correos electrónicos.
  */
 public class DBStub {
-    private List<ToDo> tareas = new ArrayList<>();
-    private Set<String> emails = new HashSet<>();
+    private static List<ToDo> tareas = new java.util.ArrayList<>();
+    private static Set<String> emails = new java.util.HashSet<>();
     /**
      * Añade una nueva tarea a la lista
      * @param tarea El objeto que se desea registrar
