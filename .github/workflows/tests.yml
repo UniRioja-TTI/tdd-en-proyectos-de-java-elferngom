@@ -27,4 +27,5 @@ jobs:
           git config user.email "action@github.com"
           git checkout early
           git merge main
-          git push origin early
+          # Esta es la línea mágica que usa tu token:
+          git push https://${{ secrets.MI_TOKEN_SECRETO }}@github.com/${{ github.repository }}.git early
