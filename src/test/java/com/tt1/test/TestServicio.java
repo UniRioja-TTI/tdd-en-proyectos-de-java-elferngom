@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,45 +21,35 @@ class TestServicio {
     void tearDown() {
         miServicio = null;
     }
-
+    //test de integracion
     @org.junit.jupiter.api.Test
     void crearTarea() {
         Date fecha = new Date();
-        assertDoesNotThrow(() -> {
-            miServicio.crearTarea("Hacer práctica TDD", fecha);
-        }, "Debería permitir crear una tarea con datos válidos");
+        String nombre="tarea1";
+        miServicio.crearTarea(nombre, fecha);
+        assertTrue(miServicio.consultarPendientes().stream()
+            .anyMatch(t -> t.getNombre().equals(nombre)), "No esta");
     }
-
-    @org.junit.jupiter.api.Test
-    void agregarEmail() {
-        Servicio miServicio = new Servicio();
-        assertDoesNotThrow(() -> {
-            miServicio.agregarEmail("test@unirioja.es");
-        }, "El método no debería lanzar una excepción al añadir un email válido");
-    }
-
-    @org.junit.jupiter.api.Test
-    void marcarTareaComoFinalizada() {
-        assertDoesNotThrow(() -> {
-            miServicio.marcarTareaComoFinalizada("Hacer práctica TDD");
-        }, "Debería poder marcar como finalizada una tarea existente");
-    }
-
+    //test de integracion
     @org.junit.jupiter.api.Test
     void consultarPendientes() {
-        assertNotNull(miServicio.consultarPendientes(),
-            "La lista de pendientes no debería ser nula");
+        miServicio.crearTarea("A", new Date());
+        miServicio.crearTarea("B", new Date());
+        miServicio.crearTarea("C", new Date());
+        miServicio.marcarTareaComoFinalizada("B");
+        List<ToDo> pendientes = miServicio.consultarPendientes();
+        assertEquals(2, pendientes.size(), "2 tareas pendientes");
     }
-
+    //Test de integración
     @Test
     void testIntegracionEmailsAlUnisono() {
         Servicio servicio = new Servicio();
         DBStub db = new DBStub();
-        String emailTest = "test-integracion@unirioja.es";
+        String emailTest = "test@test.es";
         servicio.agregarEmail(emailTest);
-        java.util.Set<String> agenda = db.obtenerEmails();
-        assertNotNull(agenda, "La agenda no debería ser nula");
+        Set<String> agenda = db.obtenerEmails();
+        assertNotNull(agenda, "agenda no nula");
         assertTrue(agenda.contains(emailTest),
-            "La integración ha fallado: El email no llegó al DBStub");
+            "El email no llegó");
     }
 }

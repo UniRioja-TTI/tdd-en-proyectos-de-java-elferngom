@@ -31,18 +31,14 @@ public class DBStub {
      * @param tarea El objeto con los datos actualizados
      */
     public void actualizar(ToDo tarea) {
-        ToDo vieja = leer(tarea.getNombre());
-        if (vieja != null) {
-            tareas.remove(vieja);
-            tareas.add(tarea);
-        }
+
     }
     /**
      * Elimina del sistema todas las tareas con ese nombre
      * @param nombre El nombre de la tarea que se desea borrar
      */
     public void borrar(String nombre) {
-        tareas.removeIf(t -> t.getNombre().equals(nombre));
+
     }
     /**
      * Recupera el conjunto completo de correos electrónicos almacenados
@@ -57,5 +53,9 @@ public class DBStub {
      */
     public void guardarEmail(String email) {
         emails.add(email);
+    }
+    public static void limpiarDatos() {
+        tareas.clear();
+        emails.clear();
     }
 }

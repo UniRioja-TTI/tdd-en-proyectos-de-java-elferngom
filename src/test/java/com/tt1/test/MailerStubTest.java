@@ -2,6 +2,7 @@ package com.tt1.test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -15,9 +16,12 @@ public class MailerStubTest {
     void tearDown() {
         mailer = null;
     }
+    //Test unitario
     @Test
     void testEnviar() {
-        MailerStub mailer = new MailerStub();
-        assertDoesNotThrow(() -> mailer.enviarCorreo("test@test.com", "hola"));
+        String email = "test@test.com";
+        String mensaje = "Hola";
+        boolean resultado = mailer.enviarCorreo(email, mensaje);
+        assertTrue(resultado, "Deberia devolver true");
     }
 }

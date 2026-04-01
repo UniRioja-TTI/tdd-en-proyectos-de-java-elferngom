@@ -14,15 +14,17 @@ public class DBStubTest {
     void setUp() {
         db = new DBStub();
     }
-
     @AfterEach
     void tearDown() {
         db = null;
     }
+    //Test unitario
     @Test
-    void testCrear() {
-        DBStub db = new DBStub();
+    void testCrearYLeer() {
         ToDo tarea = new ToDo();
-        assertDoesNotThrow(() -> db.crear(tarea));
+        tarea.setNombre("tarea");
+        db.crear(tarea);
+        assertNotNull(db.leer("tarea"));
+        assertEquals("tarea", db.leer("tarea").getNombre());
     }
 }
